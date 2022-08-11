@@ -1,6 +1,6 @@
 import random
 
-variables = ["rock", "paper", "scissor", "lizard", "spock"]
+variables = ["rock", "paper", "scissors", "lizard", "spock"]
 
 '''
 Regras:
@@ -21,10 +21,10 @@ tesoura decapita lagarto(scissor(1)lizard(0))
 '''
 
 def Win():
-    print("You Win! :)")
+    print("\nYou Win! :)\n")
 
 def Lose():
-    print("You lose! :(")
+    print("\nYou lose! :(\n")
 
 '''
 Etapas:
@@ -39,26 +39,45 @@ Etapas:
 ()ao encontrar a tupla correspondente, o código deverá retornar quem foi o vencedor da disputa
 '''
 
-rock = ('lizard', 'scissor')
-paper = ('spock', 'rock')
-spock = ('scissors', 'rock')
-scissor = ('paper','lizard')
-lizard = ('spock', 'paper')
+rule = {
+    'rock': ('lizard', 'scissors'),
+    'paper': ('spock', 'rock'),
+    'scissors': ('paper','lizard'),
+    'lizard': ('spock', 'paper'),
+    'spock': ('scissors', 'rock')
+}
 
-def Bot():
+def Running(var1, var2):
+    x = 0
+    for i in range(2):
+        if (rule[var1][i] == var2):
+            x = 1
+    Win() if(x == 1) else Lose()
     
+def Bot():
     return variables[random.randint(1, 5)-1]
 
+def Rules():
+    print('Rules:')
+    print('Rock crushes Lizard          |   Rock crushes Scissors')
+    print('Paper covers Rock            |   Paper disproves Spock')
+    print('Scissors decapites lizard    |   Scissors cuts Paper')
+    print('Lizard eats Paper            |   Lizard poisons Spock')
+    print('Spock smashes Scissors       |   Spock vaporizes Rock')
+
 def Game():
-    print('1 - rock\n2 - paper\n3 - scissor\n4 - lizard\n5 - spock\n')
+    print('1 - rock\n2 - paper\n3 - scissors\n4 - lizard\n5 - spock\n')
     
     while True:
         try:
             x = int(input("enter a value: ")) 
-            variable1 = variables[x-1]      
-            print(f'You: {variable1}') 
-            print(f'Bot: {Bot()}')
+            variable = variables[x-1] 
+            bot = Bot()     
+            print(f'You: {variable}') 
+            print(f'Bot: {bot}')
+            print('\nDRAW!\n') if variable == bot else Running(variable, bot)
             
         except:
             print('Invalid value')
+Rules()
 Game()
