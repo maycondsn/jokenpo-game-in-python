@@ -1,15 +1,17 @@
 import random
 
+import colors
+
 variables = ["rock", "paper", "scissors", "lizard", "spock"]
 
 def Win(player1, player2, index):
     print(f'\n{player1} {rule[player1][index][0]} {player2}')
-    print("You Win! :)\n")
+    print(f"{colors.green}You Win! :){colors.reset}\n")
 
 def Lose(player1, player2):
     for i in range(2):
         print(f'\n{player2} {rule[player2][i][0]} {player1}') if(rule[player2][i][1] == player1) else ""
-    print("You lose! :(\n")
+    print(f"{colors.red}You lose! :({colors.reset}\n")
 
 rule = {
     'rock': (['crushes', 'lizard'], ['crushes', 'scissors']),
@@ -40,7 +42,7 @@ def Game():
             bot = Bot()     
             print(f'You: {variable}') 
             print(f'Bot: {bot}')
-            print('\nDRAW!\n') if variable == bot else Running(variable, bot)
+            print(f'\n{colors.yellow}DRAW!{colors.reset}\n') if variable == bot else Running(variable, bot)
             
         except:
             print('Invalid value')
