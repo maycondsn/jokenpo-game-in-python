@@ -2,68 +2,33 @@ import random
 
 variables = ["rock", "paper", "scissors", "lizard", "spock"]
 
-'''
-Regras:
-spock amassa tesoura    (spock(1)scissor(0))
-spock vaporiza pedra    (spock(1)rock(0))
+def Win(player1, player2, index):
+    print(f'\n{player1} {rule[player1][index][0]} {player2}')
+    print("You Win! :)\n")
 
-lagarto envenena spock  (lizard(1)spock(0))
-lagarto come papel      (lizard(1)paper(0))
-
-papel disaprova spock   (paper(1)spock(0))
-papel cobre pedra       (paper(1)rock(0))
-
-pedra amassa lagarto    (rock(1)lizard(0))
-pedra destroi tesoura   (rock(1)scissor(0))
-
-tesoura corta papel     (scissor(1)paper(0))
-tesoura decapita lagarto(scissor(1)lizard(0))
-'''
-
-def Win():
-    print("\nYou Win! :)\n")
-
-def Lose():
-    print("\nYou lose! :(\n")
-
-'''
-Etapas:
-()criar uma lógica capaz de simplificar o jogo
-()comecar tentando com pedra papel tesoura
-()A tela de comando inicialmente rodará loop infinito mostrando os valores para cada opção do presente no jogo
-()o usuário deverá digitar o número correspondente para cada opção
-()número será de acordo com o valor da opção na tabela
-()usar tuplas para definir as regras onde o primeiro valor da tupla será o vencedor
-()inicialmente o jogo será solo com uma função aleatória 
-()o código deve ser capaz de procurar a tupla correspondente que possua os dois valores de entrada
-()ao encontrar a tupla correspondente, o código deverá retornar quem foi o vencedor da disputa
-'''
+def Lose(player1, player2):
+    for i in range(2):
+        print(f'\n{player2} {rule[player2][i][0]} {player1}') if(rule[player2][i][1] == player1) else ""
+    print("You lose! :(\n")
 
 rule = {
-    'rock': ('lizard', 'scissors'),
-    'paper': ('spock', 'rock'),
-    'scissors': ('paper','lizard'),
-    'lizard': ('spock', 'paper'),
-    'spock': ('scissors', 'rock')
+    'rock': (['crushes', 'lizard'], ['crushes', 'scissors']),
+    'paper': (['disproves', 'spock'], ['covers', 'rock']),
+    'scissors': (['cuts', 'paper'],['decapites', 'lizard']),
+    'lizard': (['poisons', 'spock'], ['eats', 'paper']),
+    'spock': (['smashes', 'scissors'], ['vaporizes', 'rock'])
 }
 
-def Running(var1, var2):
-    x = 0
+def Running(player1, player2):
+    x, index = 0, -1
     for i in range(2):
-        if (rule[var1][i] == var2):
+        if (rule[player1][i][1] == player2):
             x = 1
-    Win() if(x == 1) else Lose()
+            index = i
+    Win(player1, player2, index) if(x == 1) else Lose(player1, player2)
     
 def Bot():
     return variables[random.randint(1, 5)-1]
-
-def Rules():
-    print('Rules:')
-    print('Rock crushes Lizard          |   Rock crushes Scissors')
-    print('Paper covers Rock            |   Paper disproves Spock')
-    print('Scissors decapites lizard    |   Scissors cuts Paper')
-    print('Lizard eats Paper            |   Lizard poisons Spock')
-    print('Spock smashes Scissors       |   Spock vaporizes Rock')
 
 def Game():
     print('1 - rock\n2 - paper\n3 - scissors\n4 - lizard\n5 - spock\n')
@@ -79,5 +44,4 @@ def Game():
             
         except:
             print('Invalid value')
-Rules()
 Game()
