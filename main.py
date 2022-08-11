@@ -1,3 +1,5 @@
+import random
+
 variables = ["rock", "paper", "scissor", "lizard", "spock"]
 
 '''
@@ -43,14 +45,19 @@ spock = ('scissors', 'rock')
 scissor = ('paper','lizard')
 lizard = ('spock', 'paper')
 
+def Bot():
+    
+    return variables[random.randint(1, 5)-1]
+
 def Game():
     print('1 - rock\n2 - paper\n3 - scissor\n4 - lizard\n5 - spock\n')
     
     while True:
         try:
             x = int(input("enter a value: ")) 
-            variable1 = variables[x-1]       
-            print()
+            variable1 = variables[x-1]      
+            print(f'You: {variable1}') 
+            print(f'Bot: {Bot()}')
             
         except:
             print('Invalid value')
